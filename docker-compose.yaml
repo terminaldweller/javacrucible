@@ -1,0 +1,36 @@
+version: "3"
+services:
+  server:
+  postgres:
+    image: postgres:14-alpine
+    networks:
+      - dbnet
+    volumes:
+      - db-data:/var/lib/postgresql/14/
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/pg_pass_secret
+      - POSTGRES_USER_FILE=/run/secrets/pg_user_secret
+      - POSTGRES_INITDB_ARGS_FILE=/run/secrets/pg_initdb_args_secret
+      - POSTGRES_DB_FILE=/run/secrets/pg_db_secret
+    secrets:
+      - pg_pass_secret
+      - pg_user_secret
+      - pg_initdb_args_secret
+      - pg_db_secret
+    cap_drop:
+      - ALL
+networks:
+  dbnet:
+volumes:
+  db-data:
+secrets:
+  pg_pass_secret:
+    file: ./postgres/pg_pass_secret
+  pg_user_secret:
+    file: ./postgres/pg_user_secret
+  pg_initdb_args_secret:
+    file: ./postgres/pg_initdb_args_secret
+  pg_db_secret:
+    file: ./postgres/pg_db_secret
