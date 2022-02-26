@@ -12,21 +12,29 @@ repositories {
 }
 
 dependencies {
-  implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+  // implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
   implementation("org.springframework.boot:spring-boot-starter-web")
-  runtimeOnly("org.postgresql:postgresql")
+  // runtimeOnly("org.postgresql:postgresql")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-tasks.create("FatJar", Jar::class) {
-  description = "makes a fatjar"
-  group = "build"
-  manifest.attributes["Main-Class"] = "com.terminaldweller.MainApplication"
-  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-  val dependencies = configurations.runtimeClasspath.get().map(::zipTree)
-  from(dependencies)
-  with(tasks.jar.get())
+// tasks.create("FatJar", Jar::class) {
+//   description = "makes a fatjar"
+//   group = "build"
+//   manifest.attributes["Main-Class"] = "com.terminaldweller.MainApplication"
+//   duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//   val dependencies = configurations.runtimeClasspath.get().map(::zipTree)
+//   from(dependencies)
+//   with(tasks.jar.get())
+// }
+
+springBoot {
+  mainClass.set("com.terminaldweller.MainApplication")
 }
+
+// application {
+//   mainClass.set("com.terminaldweller.MainApplication")
+// }
 
 sourceSets {
   main {
