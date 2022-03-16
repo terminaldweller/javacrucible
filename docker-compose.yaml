@@ -12,6 +12,7 @@ services:
       - ALL
     environment:
       - DOCKER_DEPLOYMENT_TYPE=deployment
+    # restart: unless-stopped
   postgres:
     image: postgres:14-alpine
     networks:
@@ -30,6 +31,7 @@ services:
       - pg_user_secret
       - pg_initdb_args_secret
       - pg_db_secret
+    # restart: unless-stopped
 networks:
   springnet:
 volumes:

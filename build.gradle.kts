@@ -4,7 +4,7 @@ plugins {
   // application
   id("org.springframework.boot") version "2.6.4"
   id("io.spring.dependency-management") version "1.0.11.RELEASE"
-  id("java")
+  id("java-library")
 }
 
 repositories {
@@ -12,10 +12,11 @@ repositories {
 }
 
 dependencies {
-  // implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+  implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-web")
-  // runtimeOnly("org.postgresql:postgresql")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  runtimeOnly("org.postgresql:postgresql")
+  testImplementation("org.hibernate.javax.persistence:hibernate-jpa-2.1-api")
 }
 
 // tasks.create("FatJar", Jar::class) {
@@ -59,6 +60,6 @@ java {
 tasks.compileJava {
   options.isIncremental = true
   options.isFork = true
-  options.isFailOnError = false
+  options.isFailOnError = true
   options.release.set(11)
 }
