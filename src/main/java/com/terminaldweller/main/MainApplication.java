@@ -9,11 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class MainApplication {
-  @RequestMapping("/")
-  public String home() {
-    return "Hello Docker World";
-  }
-
   /**
    * just a dummy main.
    *
@@ -21,5 +16,10 @@ public class MainApplication {
    */
   public static void main(String[] args) {
     SpringApplication.run(MainApplication.class, args);
+  }
+
+  @RequestMapping("/")
+  public String home() {
+    return "Hello Docker World";
   }
 }

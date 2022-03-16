@@ -10,6 +10,8 @@ services:
       - springnet
     cap_drop:
       - ALL
+    environment:
+      - DOCKER_DEPLOYMENT_TYPE=deployment
   postgres:
     image: postgres:14-alpine
     networks:
@@ -17,7 +19,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/14/
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/pg_pass_secret
       - POSTGRES_USER_FILE=/run/secrets/pg_user_secret
