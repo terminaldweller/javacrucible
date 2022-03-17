@@ -8,4 +8,5 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
-rootProject.name = "src"
+rootProject.name = "rtlmd"
+include("app")
