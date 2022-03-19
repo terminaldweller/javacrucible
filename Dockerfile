@@ -15,5 +15,5 @@ RUN gradle bootJar --no-daemon
 FROM eclipse-temurin:11-jre-alpine
 COPY --from=certbuilder /certs /certs
 WORKDIR /springapp
-COPY --from=builder /home/springapp/build/libs/src.jar ./src.jar
-ENTRYPOINT ["java", "-jar", "/springapp/src.jar"]
+COPY --from=builder /home/springapp/build/libs/rtlmd.jar ./rtlmd.jar
+ENTRYPOINT ["java", "-jar", "/springapp/rtlmd.jar"]

@@ -17,7 +17,6 @@ public class DocService {
 
   public List<Doc> getDocs() {
     return docRepository.findAll();
-    // return List.of(new Doc(1L, "loco", 0L));
   }
 
   /**
