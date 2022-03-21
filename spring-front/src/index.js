@@ -1,14 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const navbar = (
-  <nav>
-    <h1>terminaldweller.com</h1>
-    <ul>
-      <li>Pricing</li>
-      <li>About</li>
-      <li>Contact</li>
-    </ul>
-  </nav>
+const page = (
+  <div>
+    <h1>my awesome website in react</h1>
+    <h3>REasons</h3>
+    <ol>
+      <li>one</li>
+      <li>two</li>
+      <li>three</li>
+      <li>four</li>
+    </ol>
+  </div>
 );
-ReactDOM.render(navbar, document.getElementById("root"));
+ReactDOM.render(page, document.getElementById("root"));
