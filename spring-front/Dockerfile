@@ -10,7 +10,6 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci
 RUN npm install react-scripts -g
-# COPY . ./
 COPY ./public/ ./public/
 COPY ./src/ ./src/
 RUN npm run build
