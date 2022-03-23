@@ -1,0 +1,8 @@
+{
+  "short_name": "RTLMD",
+  "name": "RTLMD",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#005f87",
+  "background_color": "#000000"
+}

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import hljs from "highlight.js/lib/core";
 import markdown from "highlight.js/lib/languages/markdown";
 import "highlight.js/styles/devibeans.css";
+import "./index.css";
 
 hljs.registerLanguage("markdown", markdown);
 
