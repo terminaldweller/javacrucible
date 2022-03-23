@@ -13,7 +13,7 @@ public class Md {
    * @return the rendered markdown document in html.
    */
   public String mdparseService(String markdown) {
-    Parser parser = parser.builder().build();
+    Parser parser = Parser.builder().build();
     Node document = parser.parse(markdown);
     HtmlRenderer renderer = HtmlRenderer.builder().build();
     return renderer.render(document);

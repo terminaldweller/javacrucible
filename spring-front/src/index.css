@@ -6,32 +6,72 @@ body {
   width: 95vw;
 }
 
-a {
-  color: #005f87;
-  text-decoration: none;
-}
-
-p {
-  color: #005f87;
-}
-
-.left-footer {
-  float: left;
-}
-
-.right-footer {
-  float: right;
-}
-
 .editor {
   background: #000000;
   color: #ffffff;
-  width: 40%;
-  max-width: 40%;
-  height: 90%;
-  max-height: 90%;
+  width: 95%;
+  max-width: 95%;
+  height: 95%;
+  max-height: 95%;
 }
 
 div.code {
   white-space: pre;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 0;
+  background-color: #000000;
+}
+.right {
+  right: 0;
+  background-color: #000000;
+}
+
+#editing, #highlighting {
+  margin: 10px;
+  padding: 10px;
+  border: 0;
+  width: calc(100% - 32px);
+  height: 150px;
+}
+
+#editing, #highlighting, #highlighting * {
+  font-size: 15pt;
+  font-family: monospace;
+  line-height: 20pt;
+}
+
+#editing, #highlighting {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+#editing {
+  z-index: 1;
+  color: transparent;
+  background: transparent;
+  caret-color: green;
+  resize: none;
+}
+
+#highlighting {
+  z-index: 0;
+}
+
+#editing, #highlighting, #highlighting * {
+  tab-size: 2;
 }
