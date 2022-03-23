@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.13 as certbuilder
+FROM node:lts-alpine3.15 as certbuilder
 RUN apk add openssl
 WORKDIR /certs
 RUN openssl req -nodes -new -x509 -subj="/C=US/ST=Denial/L=springfield/O=Dis/CN=localhost" -keyout server.key -out server.cert
@@ -10,7 +10,9 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci
 RUN npm install react-scripts -g
-COPY . ./
+# COPY . ./
+COPY ./public/ ./public/
+COPY ./src/ ./src/
 RUN npm run build
 
 FROM nginx:stable-alpine
