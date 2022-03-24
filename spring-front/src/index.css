@@ -1,6 +1,6 @@
 body {
-  color: #005f87;
-  background: #000000;
+  /* color: #005f87; */
+  /* background: #000000; */
   font-family: "DejaVuSansMono NF", Helvetica, monospace;
   height: 95vh;
   width: 95vw;
@@ -32,27 +32,29 @@ div.code {
 .left {
   left: 0;
   background-color: #000000;
+  color: #ffffff;
 }
 .right {
   right: 0;
   background-color: #000000;
+  color: #ffffff;
 }
 
-#editing, #highlighting {
-  margin: 10px;
-  padding: 10px;
-  border: 0;
-  width: calc(100% - 32px);
-  height: 150px;
-}
+/* #editor, #highlighting { */
+/*   margin: 10px; */
+/*   padding: 10px; */
+/*   border: 0; */
+/*   width: calc(100% - 32px); */
+/*   height: 150px; */
+/* } */
 
-#editing, #highlighting, #highlighting * {
+#editor, #highlight, #highlight * {
   font-size: 15pt;
   font-family: monospace;
   line-height: 20pt;
 }
 
-#editing, #highlighting {
+#editor, #highlight {
   position: absolute;
   top: 0;
   left: 0;
@@ -60,7 +62,7 @@ div.code {
   white-space: nowrap;
 }
 
-#editing {
+#editor {
   z-index: 1;
   color: transparent;
   background: transparent;
@@ -68,10 +70,10 @@ div.code {
   resize: none;
 }
 
-#highlighting {
+#highlight {
   z-index: 0;
 }
 
-#editing, #highlighting, #highlighting * {
+#editor, #highlight, #highlight * {
   tab-size: 2;
 }

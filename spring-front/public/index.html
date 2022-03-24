@@ -11,11 +11,16 @@
     ></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <meta charset="utf-8" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/@highlightjs/cdn-assets@11.5.0/styles/default.min.css"
     />
-    <meta charset="utf-8" />
+    <script type="module">
+      import hljs from "https://unpkg.com/@highlightjs/cdn-assets@11.5.0/es/highlight.min.js";
+      import markdown from "https://unpkg.com/@highlightjs/cdn-assets@11.5.0/es/languages/markdown.min.js";
+      hljs.registerLanguage("markdown", markdown);
+    </script>
     <meta name="viewport" content="width=device-width" />
     <title>RTLMD</title>
   </head>
