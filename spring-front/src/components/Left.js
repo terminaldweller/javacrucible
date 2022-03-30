@@ -10,6 +10,23 @@ hljs.registerLanguage("markdown", markdown);
 class Code extends React.Component {
   constructor(props) {
     super(props);
+    this.updateCodeSyntaxHighlighting.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateCodeSyntaxHighlighting();
+  }
+
+  componentDidUpdate() {
+    this.updateCodeSyntaxHighlighting();
+  }
+
+  updateCodeSyntaxHighlighting() {
+    document.querySelectorAll("pre code").forEach((block) => {
+      console.log("block:", block);
+      console.log("blockt text:", block.innerHTML);
+      hljs.highlightElement(block);
+    });
   }
 
   render() {
@@ -30,12 +47,14 @@ class Editor extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = { value: "" };
   }
+
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
   handleInput(event) {
     let text = this.state;
+    console.log(text);
     let result_element = document.querySelector("#highlight-content");
     if (text[text.length - 1] == "\n") {
       text += " ";
@@ -44,9 +63,6 @@ class Editor extends React.Component {
       .toString()
       .replace(new RegExp("&", "g"), "&")
       .replace(new RegExp("<", "g"), "<");
-    let pretty = hljs.highlight(this.state, { languages: "markdown" });
-    console.log("ugly:", this.state);
-    console.log("pretty:", pretty);
     let result_element_2 = document.querySelector("#highlight");
     result_element_2.scrollTop = event.currentTarget.scrollTop;
     result_element_2.scrollLeft = event.currentTarget.scrollLeft;
@@ -80,6 +96,8 @@ class Editor extends React.Component {
         name="editor"
         className="editor"
         id="editor"
+        value={this.state.value}
+        onChange={this.handleChange.bind(this)}
         onInput={this.handleInput.bind(this)}
         onScroll={this.handleScroll.bind(this)}
         onKeyDown={this.handleKeyDown.bind(this)}
