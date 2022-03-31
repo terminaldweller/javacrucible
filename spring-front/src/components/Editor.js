@@ -44,13 +44,11 @@ export default class Editor extends React.Component {
   }
 
   // TODO-use web worker instead
-  parseMarkdown() {
+  parseMarkdown(event) {
     let element = document.getElementById("markdown-placeholder");
     let md = new mit();
-    let htm = md.render(this.state.value);
+    let htm = md.render(event.target.value);
     element.innerHTML = htm;
-    console.log(htm);
-    console.log(md.render("# markdown-it rulezz!"));
   }
 
   handleChange(event) {
@@ -58,14 +56,14 @@ export default class Editor extends React.Component {
   }
 
   handleInput(event) {
-    // let text = this.state.value;
     let result_element = document.getElementById("highlight-content");
-    result_element.textContent = this.state.value;
+    result_element.textContent = event.target.value;
     this.updateCodeSyntaxHighlighting();
-    this.parseMarkdown();
+    this.parseMarkdown(event);
     let result_element_2 = document.querySelector("#highlight");
     result_element_2.scrollTop = event.currentTarget.scrollTop;
     result_element_2.scrollLeft = event.currentTarget.scrollLeft;
+    this.setState({ value: event.target.value });
   }
 
   handleScroll(event) {
@@ -85,7 +83,7 @@ export default class Editor extends React.Component {
       element.value = before_tab + "\t" + after_tab;
       element.selectionStart = cursor_pos;
       element.selectionEnd = cursor_pos;
-      this.handleInput(element.value, element);
+      this.handleInput(event);
     }
   }
 
