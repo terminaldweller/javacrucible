@@ -1,6 +1,5 @@
 import React from "react";
-import Left from "./components/Left.js";
-import Right from "./components/Right.js";
+import Editor from "./components/Editor.js";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,8 +9,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Left />
-        <Right />
+        <Editor />
       </div>
     );
   }

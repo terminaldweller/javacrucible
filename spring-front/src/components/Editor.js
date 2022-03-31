@@ -65,25 +65,30 @@ export default class Editor extends React.Component {
   render() {
     return (
       <div>
-        <pre id="highlight" aria-hidden="true" direction="rtl">
-          <code
-            id="highlight-content"
-            class="language-markdown"
+        <div>
+          <pre id="highlight" aria-hidden="true" direction="rtl">
+            <code
+              id="highlight-content"
+              class="language-markdown"
+              direction="rtl"
+            ></code>
+          </pre>
+          <textarea
+            spellcheck="false"
+            name="editor"
+            className="editor"
+            id="editor"
+            value={this.state.value}
+            onChange={this.handleChange.bind(this)}
+            onInput={this.handleInput.bind(this)}
+            onScroll={this.handleScroll.bind(this)}
+            onKeyDown={this.handleKeyDown.bind(this)}
             direction="rtl"
-          ></code>
-        </pre>
-        <textarea
-          spellcheck="false"
-          name="editor"
-          className="editor"
-          id="editor"
-          value={this.state.value}
-          onChange={this.handleChange.bind(this)}
-          onInput={this.handleInput.bind(this)}
-          onScroll={this.handleScroll.bind(this)}
-          onKeyDown={this.handleKeyDown.bind(this)}
-          direction="rtl"
-        ></textarea>
+          ></textarea>
+        </div>
+        <div class="split right">
+          <p class="markdown-placeholder">Parsed Markdown goes here!!!</p>
+        </div>
       </div>
     );
   }
