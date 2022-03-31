@@ -10,7 +10,16 @@ hljs.registerLanguage("markdown", markdown);
 class Code extends React.Component {
   constructor(props) {
     super(props);
-    this.updateCodeSyntaxHighlighting.bind(this);
+    this.updateCodeSyntaxHighlighting =
+      this.updateCodeSyntaxHighlighting.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = { value: "" };
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+    this.updateCodeSyntaxHighlighting();
+    console.log(this.state.value);
   }
 
   componentDidMount() {
@@ -24,15 +33,20 @@ class Code extends React.Component {
   updateCodeSyntaxHighlighting() {
     document.querySelectorAll("pre code").forEach((block) => {
       console.log("block:", block);
-      console.log("blockt text:", block.innerHTML);
+      console.log("blockt text:", block.textContent);
       hljs.highlightElement(block);
     });
   }
 
   render() {
     return (
-      <pre id="highlight" aria-hidden="true">
-        <code id="highlight-content" class="language-markdown"></code>
+      <pre id="highlight" aria-hidden="true" direction="rtl">
+        <code
+          id="highlight-content"
+          onChange={this.handleChange.bind(this)}
+          class="language-markdown"
+          direction="rtl"
+        ></code>
       </pre>
     );
   }
@@ -53,16 +67,14 @@ class Editor extends React.Component {
   }
 
   handleInput(event) {
-    let text = this.state;
-    console.log(text);
-    let result_element = document.querySelector("#highlight-content");
-    if (text[text.length - 1] == "\n") {
-      text += " ";
-    }
-    result_element.innerHTML = text
-      .toString()
-      .replace(new RegExp("&", "g"), "&")
-      .replace(new RegExp("<", "g"), "<");
+    let text = this.state.value;
+    let result_element = document.getElementById("highlight-content");
+    // if (text[text.length - 1] == "\n") {
+    //   text += " ";
+    // }
+    result_element.textContent = text;
+    // .replace(new RegExp("&", "g"), "&")
+    // .replace(new RegExp("<", "g"), "<");
     let result_element_2 = document.querySelector("#highlight");
     result_element_2.scrollTop = event.currentTarget.scrollTop;
     result_element_2.scrollLeft = event.currentTarget.scrollLeft;
@@ -76,7 +88,7 @@ class Editor extends React.Component {
 
   handleKeyDown(event) {
     let element = event.currentTarget;
-    let code = this.state;
+    let code = this.state.value;
     if (event.key == "Tab") {
       event.preventDefault();
       let before_tab = code.slice(0, element.selectionStart);
@@ -101,6 +113,7 @@ class Editor extends React.Component {
         onInput={this.handleInput.bind(this)}
         onScroll={this.handleScroll.bind(this)}
         onKeyDown={this.handleKeyDown.bind(this)}
+        direction="rtl"
       ></textarea>
     );
   }

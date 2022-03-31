@@ -1,32 +1,31 @@
 body {
-  /* color: #005f87; */
-  /* background: #000000; */
   font-family: "DejaVuSansMono NF", Helvetica, monospace;
   height: 95vh;
   width: 95vw;
 }
 
+pre,textarea,code {
+  direction: rtl;
+  overflow-wrap: break-word;
+  caret-color: green;
+  white-space: pre-wrap;
+}
+
 .editor {
   background: #000000;
   color: #ffffff;
-  width: 95%;
-  max-width: 95%;
+  width: 50%;
+  max-width: 50%;
   height: 95%;
-  max-height: 95%;
-}
-
-div.code {
-  white-space: pre;
+  max-height: 50%;
 }
 
 .split {
   height: 100%;
   width: 50%;
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
 }
 
 .left {
@@ -34,32 +33,28 @@ div.code {
   background-color: #000000;
   color: #ffffff;
 }
+
 .right {
   right: 0;
   background-color: #000000;
   color: #ffffff;
 }
 
-/* #editor, #highlighting { */
-/*   margin: 10px; */
-/*   padding: 10px; */
-/*   border: 0; */
-/*   width: calc(100% - 32px); */
-/*   height: 150px; */
-/* } */
-
-#editor, #highlight, #highlight * {
-  font-size: 15pt;
+#editor, #highight, #highlight * {
+  font-size: 13pt;
   font-family: monospace;
-  line-height: 20pt;
+  line-height: 15pt;
+  tab-size: 2;
 }
 
 #editor, #highlight {
   position: absolute;
   top: 0;
   left: 0;
-  overflow: auto;
-  white-space: nowrap;
+  width: 50%;
+  max-width: 50%;
+  height: 100%;
+  max-height: 100%;
 }
 
 #editor {
@@ -71,9 +66,6 @@ div.code {
 }
 
 #highlight {
+  background: #000000;
   z-index: 0;
-}
-
-#editor, #highlight, #highlight * {
-  tab-size: 2;
 }
