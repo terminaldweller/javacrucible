@@ -4,8 +4,23 @@ import hljs from "highlight.js/lib/core";
 import "highlight.js/styles/devibeans.css";
 import markdown from "highlight.js/lib/languages/markdown.js";
 import "../index.css";
+import mit from "markdown-it";
 
 hljs.registerLanguage("markdown", markdown);
+// const mit = require("markdown-it")({ html: true })
+//   .enable(["table"])
+//   .disable(["strikethrough"])
+//   .use(require("markdown-it-texmath"), {
+//     engine: require("katex"),
+//     delimiters: "gitlab",
+//     katexOptions: { macros: { "\\RR": "\\mathbb{R}" } },
+//   })
+//   .use(require("markdown-it-multimd-table"))
+//   .use(require("markdown-it-highlightjs"), {
+//     inline: true,
+//     auto: true,
+//     code: true,
+//   });
 
 export default class Editor extends React.Component {
   constructor(props) {
@@ -16,15 +31,24 @@ export default class Editor extends React.Component {
     this.updateCodeSyntaxHighlighting =
       this.updateCodeSyntaxHighlighting.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.parseMarkdown = this.parseMarkdown.bind(this);
     this.state = { value: "" };
   }
 
+  // TODO-we should highlight through a web worker
   updateCodeSyntaxHighlighting() {
     document.querySelectorAll("pre code").forEach((block) => {
-      console.log("block:", block);
-      console.log("blockt text:", block.textContent);
       hljs.highlightElement(block);
     });
+  }
+
+  parseMarkdown() {
+    let element = document.getElementById("markdown-placeholder");
+    let md = new mit();
+    let htm = md.render(this.state.value);
+    element.innerHTML = htm;
+    console.log(htm);
+    console.log(md.render("# markdown-it rulezz!"));
   }
 
   handleChange(event) {
@@ -32,10 +56,11 @@ export default class Editor extends React.Component {
   }
 
   handleInput(event) {
-    let text = this.state.value;
+    // let text = this.state.value;
     let result_element = document.getElementById("highlight-content");
-    result_element.textContent = text;
+    result_element.textContent = this.state.value;
     this.updateCodeSyntaxHighlighting();
+    this.parseMarkdown();
     let result_element_2 = document.querySelector("#highlight");
     result_element_2.scrollTop = event.currentTarget.scrollTop;
     result_element_2.scrollLeft = event.currentTarget.scrollLeft;
@@ -69,7 +94,7 @@ export default class Editor extends React.Component {
           <pre id="highlight" aria-hidden="true" direction="rtl">
             <code
               id="highlight-content"
-              class="language-markdown"
+              className="language-markdown"
               direction="rtl"
             ></code>
           </pre>
@@ -86,8 +111,8 @@ export default class Editor extends React.Component {
             direction="rtl"
           ></textarea>
         </div>
-        <div class="split right">
-          <p class="markdown-placeholder">Parsed Markdown goes here!!!</p>
+        <div className="split right">
+          <p direction="rtl" id="markdown-placeholder"></p>
         </div>
       </div>
     );
