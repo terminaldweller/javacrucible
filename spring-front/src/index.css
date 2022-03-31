@@ -2,23 +2,20 @@ body {
   font-family: "DejaVuSansMono NF", Helvetica, monospace;
   height: 95vh;
   width: 95vw;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 pre,textarea,code {
   direction: rtl;
   overflow-wrap: break-word;
   caret-color: green;
+  caret-shapre: block;
   white-space: pre-wrap;
   tab-size: 2;
-}
-
-.editor {
-  background: #000000;
-  color: #ffffff;
-  width: 50%;
-  max-width: 50%;
-  height: 95%;
-  max-height: 50%;
+  font-size: 13pt;
+  font-family: monospace;
+  line-height: 15pt;
 }
 
 .split {
@@ -41,31 +38,48 @@ pre,textarea,code {
   color: #ffffff;
 }
 
-#editor, #highight, #highlight * {
-  font-size: 13pt;
-  font-family: monospace;
-  line-height: 15pt;
+#highlight-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
 
 #editor, #highlight {
   position: absolute;
   top: 0;
   left: 0;
-  width: 50%;
-  max-width: 50%;
+  width: 47%;
+  max-width: 47%;
   height: 100%;
   max-height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
 
 #editor {
   z-index: 1;
   color: transparent;
   background: transparent;
-  caret-color: green;
   resize: none;
 }
 
 #highlight {
   background: #000000;
   z-index: 0;
+}
+
+#markdown-placeholder {
+  width: 95%;
+  max-width: 95%;
+  direction: rtl;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }

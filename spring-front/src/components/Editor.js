@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import hljs from "highlight.js/lib/core";
+// const hljs = window.hljs;
 import "highlight.js/styles/devibeans.css";
 import markdown from "highlight.js/lib/languages/markdown.js";
 import "../index.css";
@@ -35,13 +36,14 @@ export default class Editor extends React.Component {
     this.state = { value: "" };
   }
 
-  // TODO-we should highlight through a web worker
+  // TODO-use web worker instead
   updateCodeSyntaxHighlighting() {
     document.querySelectorAll("pre code").forEach((block) => {
       hljs.highlightElement(block);
     });
   }
 
+  // TODO-use web worker instead
   parseMarkdown() {
     let element = document.getElementById("markdown-placeholder");
     let md = new mit();
