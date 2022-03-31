@@ -7,27 +7,16 @@ import "../index.css";
 
 hljs.registerLanguage("markdown", markdown);
 
-class Code extends React.Component {
+export default class Editor extends React.Component {
   constructor(props) {
     super(props);
+    this.handleInput = this.handleInput.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.updateCodeSyntaxHighlighting =
       this.updateCodeSyntaxHighlighting.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = { value: "" };
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-    this.updateCodeSyntaxHighlighting();
-    console.log(this.state.value);
-  }
-
-  componentDidMount() {
-    this.updateCodeSyntaxHighlighting();
-  }
-
-  componentDidUpdate() {
-    this.updateCodeSyntaxHighlighting();
   }
 
   updateCodeSyntaxHighlighting() {
@@ -38,30 +27,6 @@ class Code extends React.Component {
     });
   }
 
-  render() {
-    return (
-      <pre id="highlight" aria-hidden="true" direction="rtl">
-        <code
-          id="highlight-content"
-          onChange={this.handleChange.bind(this)}
-          class="language-markdown"
-          direction="rtl"
-        ></code>
-      </pre>
-    );
-  }
-}
-
-class Editor extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = { value: "" };
-  }
-
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
@@ -69,12 +34,8 @@ class Editor extends React.Component {
   handleInput(event) {
     let text = this.state.value;
     let result_element = document.getElementById("highlight-content");
-    // if (text[text.length - 1] == "\n") {
-    //   text += " ";
-    // }
     result_element.textContent = text;
-    // .replace(new RegExp("&", "g"), "&")
-    // .replace(new RegExp("<", "g"), "<");
+    this.updateCodeSyntaxHighlighting();
     let result_element_2 = document.querySelector("#highlight");
     result_element_2.scrollTop = event.currentTarget.scrollTop;
     result_element_2.scrollLeft = event.currentTarget.scrollLeft;
@@ -103,27 +64,27 @@ class Editor extends React.Component {
 
   render() {
     return (
-      <textarea
-        spellcheck="false"
-        name="editor"
-        className="editor"
-        id="editor"
-        value={this.state.value}
-        onChange={this.handleChange.bind(this)}
-        onInput={this.handleInput.bind(this)}
-        onScroll={this.handleScroll.bind(this)}
-        onKeyDown={this.handleKeyDown.bind(this)}
-        direction="rtl"
-      ></textarea>
+      <div>
+        <pre id="highlight" aria-hidden="true" direction="rtl">
+          <code
+            id="highlight-content"
+            class="language-markdown"
+            direction="rtl"
+          ></code>
+        </pre>
+        <textarea
+          spellcheck="false"
+          name="editor"
+          className="editor"
+          id="editor"
+          value={this.state.value}
+          onChange={this.handleChange.bind(this)}
+          onInput={this.handleInput.bind(this)}
+          onScroll={this.handleScroll.bind(this)}
+          onKeyDown={this.handleKeyDown.bind(this)}
+          direction="rtl"
+        ></textarea>
+      </div>
     );
   }
-}
-
-export default function Left() {
-  return (
-    <div>
-      <Editor />
-      <Code />
-    </div>
-  );
 }

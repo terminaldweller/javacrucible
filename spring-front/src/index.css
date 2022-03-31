@@ -9,6 +9,7 @@ pre,textarea,code {
   overflow-wrap: break-word;
   caret-color: green;
   white-space: pre-wrap;
+  tab-size: 2;
 }
 
 .editor {
@@ -44,7 +45,6 @@ pre,textarea,code {
   font-size: 13pt;
   font-family: monospace;
   line-height: 15pt;
-  tab-size: 2;
 }
 
 #editor, #highlight {
