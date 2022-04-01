@@ -4,24 +4,27 @@ import hljs from "highlight.js/lib/core";
 // const hljs = window.hljs;
 import "highlight.js/styles/devibeans.css";
 import markdown from "highlight.js/lib/languages/markdown.js";
+import javascript from "highlight.js/lib/languages/javascript.js";
+import python from "highlight.js/lib/languages/python.js";
 import "../index.css";
 import mit from "markdown-it";
+import mithljs from "markdown-it-highlightjs";
+import mittexmath from "markdown-it-texmath";
+import mitmmdtable from "markdown-it-multimd-table";
+import katex from "katex";
 
 hljs.registerLanguage("markdown", markdown);
-// const mit = require("markdown-it")({ html: true })
-//   .enable(["table"])
-//   .disable(["strikethrough"])
-//   .use(require("markdown-it-texmath"), {
-//     engine: require("katex"),
-//     delimiters: "gitlab",
-//     katexOptions: { macros: { "\\RR": "\\mathbb{R}" } },
-//   })
-//   .use(require("markdown-it-multimd-table"))
-//   .use(require("markdown-it-highlightjs"), {
-//     inline: true,
-//     auto: true,
-//     code: true,
-//   });
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("python", python);
+
+mit({ html: true });
+mit().use(mittexmath, {
+  engine: katex,
+  delimiters: "gitlab",
+  katexOptions: { macros: { "\\RR": "\\mathbb{R}" } },
+});
+mit().use(mitmmdtable);
+mit().use(mithljs, { inline: true, auto: false, code: false, hljs: hljs });
 
 export default class Editor extends React.Component {
   constructor(props) {
@@ -38,9 +41,11 @@ export default class Editor extends React.Component {
 
   // TODO-use web worker instead
   updateCodeSyntaxHighlighting() {
-    document.querySelectorAll("pre code").forEach((block) => {
-      hljs.highlightElement(block);
-    });
+    // document.querySelectorAll("pre code").forEach((block) => {
+    //   console.log(block);
+    //   hljs.highlightElement(block);
+    // });
+    hljs.highlightAll();
   }
 
   // TODO-use web worker instead
@@ -52,7 +57,7 @@ export default class Editor extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    // this.setState({ value: event.target.value });
   }
 
   handleInput(event) {
@@ -112,7 +117,7 @@ export default class Editor extends React.Component {
           ></textarea>
         </div>
         <div className="split right">
-          <p direction="rtl" id="markdown-placeholder"></p>
+          <div direction="rtl" id="markdown-placeholder"></div>
         </div>
       </div>
     );
