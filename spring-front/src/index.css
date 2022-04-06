@@ -49,6 +49,7 @@ pre,textarea,code {
   margin: 0px;
   border: 0px;
   padding: 0px;
+  overflow-y: scroll;
 }
 
 #editor, #highlight {
@@ -62,6 +63,7 @@ pre,textarea,code {
   margin: 0px;
   border: 0px;
   padding: 0px;
+  overflow-y: scroll;
 }
 
 #editor {
@@ -82,4 +84,5 @@ pre,textarea,code {
   direction: rtl;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  overflow-y: scroll;
 }

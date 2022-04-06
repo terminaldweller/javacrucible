@@ -6,6 +6,8 @@ import "highlight.js/styles/devibeans.css";
 import markdown from "highlight.js/lib/languages/markdown.js";
 import javascript from "highlight.js/lib/languages/javascript.js";
 import python from "highlight.js/lib/languages/python.js";
+import C from "highlight.js/lib/languages/c.js";
+import bash from "highlight.js/lib/languages/bash.js";
 import "../index.css";
 import mit from "markdown-it";
 import mithljs from "markdown-it-highlightjs";
@@ -16,15 +18,18 @@ import katex from "katex";
 hljs.registerLanguage("markdown", markdown);
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("python", python);
+hljs.registerLanguage("c", C);
+hljs.registerLanguage("bash", bash);
 
-mit({ html: true });
-mit().use(mittexmath, {
-  engine: katex,
-  delimiters: "gitlab",
-  katexOptions: { macros: { "\\RR": "\\mathbb{R}" } },
-});
-mit().use(mitmmdtable);
-mit().use(mithljs, { inline: true, auto: false, code: false, hljs: hljs });
+const md = new mit({ html: true })
+  .enable(["table"])
+  .use(mittexmath, {
+    engine: katex,
+    delimiters: "gitlab",
+    katexOptions: { macros: { "\\RR": "\\mathbb{R}" } },
+  })
+  .use(mitmmdtable)
+  .use(mithljs, { inline: true, auto: true, code: true, hljs: hljs });
 
 export default class Editor extends React.Component {
   constructor(props) {
@@ -41,17 +46,16 @@ export default class Editor extends React.Component {
 
   // TODO-use web worker instead
   updateCodeSyntaxHighlighting() {
-    // document.querySelectorAll("pre code").forEach((block) => {
-    //   console.log(block);
-    //   hljs.highlightElement(block);
-    // });
-    hljs.highlightAll();
+    document.querySelectorAll("pre code").forEach((block) => {
+      console.log(block);
+      hljs.highlightElement(block);
+    });
+    // hljs.highlightAll();
   }
 
   // TODO-use web worker instead
   parseMarkdown(event) {
     let element = document.getElementById("markdown-placeholder");
-    let md = new mit();
     let htm = md.render(event.target.value);
     element.innerHTML = htm;
   }
@@ -116,9 +120,9 @@ export default class Editor extends React.Component {
             direction="rtl"
           ></textarea>
         </div>
-        <div className="split right">
-          <div direction="rtl" id="markdown-placeholder"></div>
-        </div>
+        <a className="split right">
+          <a direction="rtl" id="markdown-placeholder"></a>
+        </a>
       </div>
     );
   }
