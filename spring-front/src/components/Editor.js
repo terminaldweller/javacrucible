@@ -42,15 +42,19 @@ export default class Editor extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.parseMarkdown = this.parseMarkdown.bind(this);
     this.state = { value: "" };
+    // this.hljs_worker = new Worker("../highlight_worker.js");
+    // this.md_worker = new Worker("../parse_worker.js");
   }
 
   // TODO-use web worker instead
   updateCodeSyntaxHighlighting() {
     document.querySelectorAll("pre code").forEach((block) => {
-      console.log(block);
       hljs.highlightElement(block);
     });
-    // hljs.highlightAll();
+    // this.hljs_worker.postMessage("message");
+    // this.hljs_worker.ouMessage = (event) => {
+    //   console.log("highlighed successfully");
+    // };
   }
 
   // TODO-use web worker instead
@@ -58,6 +62,10 @@ export default class Editor extends React.Component {
     let element = document.getElementById("markdown-placeholder");
     let htm = md.render(event.target.value);
     element.innerHTML = htm;
+    // this.md_worker.postMessage(event);
+    // this.md_worker.onMessage((htm) => {
+    //   element.innerHTML = htm;
+    // });
   }
 
   handleChange(event) {
@@ -69,16 +77,24 @@ export default class Editor extends React.Component {
     result_element.textContent = event.target.value;
     this.updateCodeSyntaxHighlighting();
     this.parseMarkdown(event);
+
+    result_element.scrollTop = event.currentTarget.scrollTop;
+    result_element.scrollLeft = event.currentTarget.scrollLeft;
     let result_element_2 = document.querySelector("#highlight");
     result_element_2.scrollTop = event.currentTarget.scrollTop;
     result_element_2.scrollLeft = event.currentTarget.scrollLeft;
+
     this.setState({ value: event.target.value });
   }
 
   handleScroll(event) {
-    let result_element = document.querySelector("#highlight");
+    let result_element = document.querySelector("#highlight-content");
     result_element.scrollTop = event.currentTarget.scrollTop;
     result_element.scrollLeft = event.currentTarget.scrollLeft;
+
+    let result_element_2 = document.querySelector("#highlight");
+    result_element_2.scrollTop = event.currentTarget.scrollTop;
+    result_element_2.scrollLeft = event.currentTarget.scrollLeft;
   }
 
   handleKeyDown(event) {
@@ -120,9 +136,9 @@ export default class Editor extends React.Component {
             direction="rtl"
           ></textarea>
         </div>
-        <a className="split right">
-          <a direction="rtl" id="markdown-placeholder"></a>
-        </a>
+        <div className="split right">
+          <div direction="rtl" id="markdown-placeholder"></div>
+        </div>
       </div>
     );
   }

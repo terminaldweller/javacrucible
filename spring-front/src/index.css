@@ -6,11 +6,14 @@ body {
   color: #ffffff;
 }
 
-pre,textarea,code {
+pre,
+textarea,
+code {
   direction: rtl;
   overflow-wrap: break-word;
   caret-color: green;
-  caret-shapre: block;
+  caret-shape: block;
+  /* caret: currentcolor block; */
   white-space: pre-wrap;
   tab-size: 2;
   font-size: 13pt;
@@ -49,10 +52,11 @@ pre,textarea,code {
   margin: 0px;
   border: 0px;
   padding: 0px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
-#editor, #highlight {
+#editor,
+#highlight {
   position: absolute;
   top: 0;
   left: 0;
@@ -63,7 +67,7 @@ pre,textarea,code {
   margin: 0px;
   border: 0px;
   padding: 0px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 #editor {
@@ -79,10 +83,12 @@ pre,textarea,code {
 }
 
 #markdown-placeholder {
-  width: 95%;
-  max-width: 95%;
+  width: 99%;
+  max-width: 99%;
+  height: 100%;
+  max-height: 100;
   direction: rtl;
   overflow-wrap: break-word;
   white-space: pre-wrap;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
