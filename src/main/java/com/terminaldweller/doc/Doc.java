@@ -18,6 +18,7 @@ public class Doc {
 
   private String name;
   private long lastModified;
+  private String body;
 
   public Doc() {}
 
@@ -28,15 +29,24 @@ public class Doc {
    * @param name the name of the documment given by the user.
    * @param lastModified the date of the last modification in unix epoch.
    */
-  public Doc(Long id, String name, long lastModified) {
+  public Doc(Long id, String name, long lastModified, String body) {
     this.id = id;
     this.name = name;
     this.lastModified = lastModified;
+    this.body = body;
   }
 
-  public Doc(String name, long lastModified) {
+  /**
+   * Constructor without the id.
+   *
+   * @param name document name
+   * @param lastModified date of last modification
+   * @param body document content
+   */
+  public Doc(String name, long lastModified, String body) {
     this.name = name;
     this.lastModified = lastModified;
+    this.body = body;
   }
 
   public Long getId() {
@@ -51,6 +61,10 @@ public class Doc {
     return this.lastModified;
   }
 
+  public String getBody() {
+    return this.body;
+  }
+
   public void setId(Long id) {
     this.id = id;
   }
@@ -61,5 +75,9 @@ public class Doc {
 
   public void setLastModified(long lastModified) {
     this.lastModified = lastModified;
+  }
+
+  public void setBody(String body) {
+    this.body = body;
   }
 }

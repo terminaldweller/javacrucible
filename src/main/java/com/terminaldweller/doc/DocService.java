@@ -33,6 +33,22 @@ public class DocService {
   }
 
   /**
+   * Update a Document.
+   *
+   * @param doc the document to update.
+   */
+  public void updateDoc(Doc doc, Long id) {
+    Optional<Doc> docOptional = docRepository.findById(id);
+    if (!docOptional.isPresent()) {
+      throw new IllegalStateException("Resource must be created before update");
+    }
+    doc.setId(id);
+    doc.setLastModified(System.currentTimeMillis() / 1000L);
+    doc.setBody(doc.getBody());
+    docRepository.save(doc);
+  }
+
+  /**
    * Deletes a document from the data store.
    *
    * @param id The identifier for the document to be deleted.
