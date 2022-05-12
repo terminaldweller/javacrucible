@@ -26,7 +26,7 @@ const md = new mit({ html: true })
   .use(mittexmath, {
     engine: katex,
     delimiters: "gitlab",
-    katexOptions: { macros: { "\\RR": "\\mathbb{R}" } },
+    katexOptions: { macros: { "\\RR": "\\mathbb{R}" }, output: "mathml" },
   })
   .use(mitmmdtable)
   .use(mithljs, { inline: true, auto: true, code: true, hljs: hljs });
