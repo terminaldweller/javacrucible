@@ -1,6 +1,6 @@
 package com.terminaldweller.doc;
 
-import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,9 +24,9 @@ public class DocController {
     this.docService = docService;
   }
 
-  @GetMapping
-  public List<Doc> getDocs() {
-    return docService.getDocs();
+  @GetMapping(path = "{Id}")
+  public Optional<Doc> getDocs(@PathVariable("Id") Long id) {
+    return docService.getDocs(id);
   }
 
   @PostMapping

@@ -1,6 +1,5 @@
 package com.terminaldweller.doc;
 
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,8 @@ public class DocService {
     this.docRepository = docRepository;
   }
 
-  public List<Doc> getDocs() {
-    return docRepository.findAll();
+  public Optional<Doc> getDocs(Long id) {
+    return docRepository.findById(id);
   }
 
   /**
