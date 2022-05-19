@@ -26,7 +26,7 @@ const md = new mit({ html: true })
   .use(mittexmath, {
     engine: katex,
     delimiters: "gitlab",
-    katexOptions: { macros: { "\\RR": "\\mathbb{R}" }, output: "mathml" },
+    katexOptions: { output: "mathml" },
   })
   .use(mitmmdtable)
   .use(mithljs, { inline: true, auto: true, code: true, hljs: hljs });
@@ -41,7 +41,8 @@ export default class Editor extends React.Component {
       this.updateCodeSyntaxHighlighting.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.parseMarkdown = this.parseMarkdown.bind(this);
-    this.state = { value: "" };
+    this.handleTitleClick = this.handleTitleClick.bind(this);
+    this.state = { value: "", drawerActive: false };
     // this.hljs_worker = new Worker("../highlight_worker.js");
     // this.md_worker = new Worker("../parse_worker.js");
   }
@@ -112,7 +113,13 @@ export default class Editor extends React.Component {
     }
   }
 
+  handleTitleClick() {
+    this.setState((prevState) => ({ drawerActive: !prevState.drawerActive }));
+  }
+
   render() {
+    const { markdownText, drawerTitle, drawerChildren } = this.props;
+    const drawerStyles = this.state.drawerActive ? "is-expanded" : "";
     return (
       <div>
         <div>
@@ -134,7 +141,10 @@ export default class Editor extends React.Component {
             onScroll={this.handleScroll.bind(this)}
             onKeyDown={this.handleKeyDown.bind(this)}
             direction="rtl"
-          ></textarea>
+            tabIndex="0"
+          >
+            {markdownText}
+          </textarea>
         </div>
         <div className="split right">
           <div direction="rtl" id="markdown-placeholder"></div>

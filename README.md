@@ -1,2 +1,2 @@
 # mdrtl
-A markdown editor with rtl support.<br/>
+A bare-bones rtl markdown editor.<br/>
