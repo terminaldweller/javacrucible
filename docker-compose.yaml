@@ -5,7 +5,7 @@ services:
     build:
       context: .
     ports:
-      - "9080:8080"
+      - "9080:8443"
     networks:
       - springnet
     cap_drop:
