@@ -117,9 +117,9 @@ export default class Editor extends React.Component {
     this.setState((prevState) => ({ drawerActive: !prevState.drawerActive }));
   }
 
-  render() {
-    const { markdownText, drawerTitle, drawerChildren } = this.props;
-    const drawerStyles = this.state.drawerActive ? "is-expanded" : "";
+  render(props) {
+    // const { markdownText, drawerTitle, drawerChildren } = this.props;
+    // const drawerStyles = this.state.drawerActive ? "is-expanded" : "";
     return (
       <div>
         <div>
@@ -142,9 +142,7 @@ export default class Editor extends React.Component {
             onKeyDown={this.handleKeyDown.bind(this)}
             direction="rtl"
             tabIndex="0"
-          >
-            {markdownText}
-          </textarea>
+          ></textarea>
         </div>
         <div className="split right">
           <div direction="rtl" id="markdown-placeholder"></div>

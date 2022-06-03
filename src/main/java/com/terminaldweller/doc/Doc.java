@@ -1,10 +1,7 @@
 package com.terminaldweller.doc;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /** The document class. */
@@ -12,8 +9,8 @@ import javax.persistence.Table;
 @Table
 public class Doc {
   @Id
-  @SequenceGenerator(name = "doc_sequence", sequenceName = "doc_sequence", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doc_sequence")
+  // @SequenceGenerator(name = "doc_sequence", sequenceName = "doc_sequence", allocationSize = 1)
+  // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doc_sequence")
   private Long id;
 
   private String name;

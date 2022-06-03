@@ -15,7 +15,11 @@ public class DocService {
   }
 
   public Optional<Doc> getDocs(Long id) {
-    return docRepository.findById(id);
+    Optional<Doc> docOptional = docRepository.findById(id);
+    if (docOptional.isPresent()) {
+      return docOptional;
+    }
+    throw new IllegalStateException("Id does not exist");
   }
 
   /**
@@ -23,11 +27,13 @@ public class DocService {
    *
    * @param doc the new Document to add.
    */
-  public void addNewDoc(Doc doc) {
-    Optional<Doc> docOptional = docRepository.findDocByName(doc.getName());
+  public void addNewDoc(Long id, Doc doc) {
+    // Optional<Doc> docOptional = docRepository.findDocByName(doc.getName());
+    Optional<Doc> docOptional = docRepository.findById(id);
     if (docOptional.isPresent()) {
       throw new IllegalStateException("Id is already taken");
     }
+    doc.setId(id);
     docRepository.save(doc);
   }
 
@@ -55,7 +61,7 @@ public class DocService {
   public void deleteDoc(Long id) {
     boolean exists = docRepository.existsById(id);
     if (!exists) {
-      throw new IllegalStateException("doc " + id + " does not exitst");
+      throw new IllegalStateException("doc " + Long.toString(id) + " does not exitst");
     }
     docRepository.deleteById(id);
   }

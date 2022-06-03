@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface DocRepository extends JpaRepository<Doc, Long> {
   @Query("SELECT d FROM Doc d WHERE d.name = ?1")
   Optional<Doc> findDocByName(String name);
+
+  @Query("SELECT d FROM Doc d WHERE d.id = ?1")
+  Optional<Doc> findDocById(Long id);
 }
