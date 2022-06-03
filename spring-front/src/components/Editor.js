@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import hljs from "highlight.js/lib/core";
 // const hljs = window.hljs;
@@ -42,9 +42,19 @@ export default class Editor extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.parseMarkdown = this.parseMarkdown.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
+    this.handleLoad = this.handleLoad.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.genNewRandId = this.genNewRandId.bind(this);
     this.state = { value: "", drawerActive: false };
     // this.hljs_worker = new Worker("../highlight_worker.js");
     // this.md_worker = new Worker("../parse_worker.js");
+    this.docId = localStorage.getItem("docId");
+    if (this.docId === null) {
+      this.docId = this.genNewRandId();
+      localStorage.setItem("docId", this.docId);
+    }
+    console.log(this.docId);
   }
 
   // TODO-use web worker instead
@@ -117,9 +127,66 @@ export default class Editor extends React.Component {
     this.setState((prevState) => ({ drawerActive: !prevState.drawerActive }));
   }
 
+  genNewRandId() {
+    return Math.floor(Math.random() * (0x1 << 16));
+  }
+
+  // DELETE
+  handleDelete() {
+    fetch(`https://localhost:9080/api/v1/doc/${this.docId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+      },
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`request failed with status ${response.status}`);
+      }
+    });
+  }
+
+  // GET
+  handleLoad(event) {
+    let res;
+    fetch(`https://localhost:9080/api/v1/doc/${this.docId}`).then(
+      (response) => {
+        if (!response.ok) {
+          throw new Error(`request failed with status ${response.status}`);
+        }
+        res = response.json().then((json) => {
+          this.setState({ value: json.body });
+        });
+      }
+    );
+  }
+
+  // POST & PUT
+  async handleSave() {
+    let obj = {
+      id: this.docId,
+      name: `${this.docId}`,
+      lastModified: Math.floor(Date.now() / 1000),
+      body: this.state.value,
+    };
+    let response = await fetch(
+      `https://localhost:9080/api/v1/doc/${this.docId}`,
+      {
+        method: "POST",
+        body: JSON.stringify(obj),
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`request failed with status code ${response.status}`);
+    }
+  }
+
   render(props) {
-    // const { markdownText, drawerTitle, drawerChildren } = this.props;
-    // const drawerStyles = this.state.drawerActive ? "is-expanded" : "";
     return (
       <div>
         <div>
@@ -147,6 +214,27 @@ export default class Editor extends React.Component {
         <div className="split right">
           <div direction="rtl" id="markdown-placeholder"></div>
         </div>
+        <img
+          className="icon"
+          src="load.jpg"
+          width="20"
+          height="20"
+          onClick={this.handleLoad.bind(this)}
+        />
+        <img
+          className="icon"
+          src="trash3.png"
+          width="20"
+          height="20"
+          onClick={this.handleDelete.bind(this)}
+        />
+        <img
+          className="icon"
+          src="save.png"
+          width="20"
+          height="20"
+          onClick={this.handleSave.bind(this)}
+        />
       </div>
     );
   }
