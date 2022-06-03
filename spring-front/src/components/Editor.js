@@ -155,6 +155,14 @@ export default class Editor extends React.Component {
         }
         res = response.json().then((json) => {
           this.setState({ value: json.body });
+          let result_element = document.getElementById("highlight-content");
+          result_element.textContent = this.state.value;
+          document.querySelectorAll("pre code").forEach((block) => {
+            hljs.highlightElement(block);
+          });
+          let element = document.getElementById("markdown-placeholder");
+          let htm = md.render(this.state.value);
+          element.innerHTML = htm;
         });
       }
     );
