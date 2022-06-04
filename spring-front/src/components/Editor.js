@@ -14,6 +14,7 @@ import mithljs from "markdown-it-highlightjs";
 import mittexmath from "markdown-it-texmath";
 import mitmmdtable from "markdown-it-multimd-table";
 import katex from "katex";
+import { mdrtlConfig } from "../config.js";
 
 hljs.registerLanguage("markdown", markdown);
 hljs.registerLanguage("javascript", javascript);
