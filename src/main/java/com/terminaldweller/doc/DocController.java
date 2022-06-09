@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /** The document controller class. */
 @RestController
-@CrossOrigin(origins = "https://localhost:7080")
+@CrossOrigin(origins = "https://localhost:7080, https://editor.terminaldweller.com")
 @RequestMapping(path = "api/v1/doc")
 public class DocController {
   private final DocService docService;

@@ -3,9 +3,11 @@ package com.terminaldweller;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+// import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+// @EnableWebMvc
 @Profile("development")
 public class DevConfiguration implements WebMvcConfigurer {
 
@@ -13,7 +15,7 @@ public class DevConfiguration implements WebMvcConfigurer {
   public void addCorsMappings(CorsRegistry registry) {
     registry
         .addMapping("/**")
-        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        .allowedOrigins("https://localhost:7080, https://editor.terminaldweller.com");
+        .allowedOrigins("https://localhost:7080, https://editor.terminaldweller.com")
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
   }
 }

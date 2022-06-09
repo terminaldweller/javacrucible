@@ -134,7 +134,7 @@ export default class Editor extends React.Component {
 
   // DELETE
   handleDelete() {
-    fetch(mdrtlConfig.serverURL + this.docId, {
+    fetch(`${mdrtlConfig.serverURL}/${this.docId}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -149,7 +149,7 @@ export default class Editor extends React.Component {
   // GET
   handleLoad(event) {
     let res;
-    fetch(mdrtlConfig.serverURL + this.docId).then((response) => {
+    fetch(`${mdrtlConfig.serverURL}/${this.docId}`).then((response) => {
       if (!response.ok) {
         throw new Error(`request failed with status ${response.status}`);
       }
@@ -173,7 +173,7 @@ export default class Editor extends React.Component {
       lastModified: Math.floor(Date.now() / 1000),
       body: this.state.value,
     };
-    let response = await fetch(mdrtlConfig.serverURL + this.docId, {
+    let response = await fetch(`${mdrtlConfig.serverURL}/${this.docId}`, {
       method: "POST",
       body: JSON.stringify(obj),
       mode: "cors",
@@ -190,7 +190,7 @@ export default class Editor extends React.Component {
         lastModified: Math.floor(Date.now() / 1000),
         body: this.state.value,
       };
-      let response = await fetch(mdrtlConfig.serverURL + this.docId, {
+      let response = await fetch(`${mdrtlConfig.serverURL}/${this.docId}`, {
         method: "PUT",
         body: JSON.stringify(obj),
         mode: "cors",
