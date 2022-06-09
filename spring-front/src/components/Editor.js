@@ -134,7 +134,7 @@ export default class Editor extends React.Component {
 
   // DELETE
   handleDelete() {
-    fetch(`https://localhost:9080/api/v1/doc/${this.docId}`, {
+    fetch(mdrtlConfig.serverURL + this.docId, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -149,22 +149,20 @@ export default class Editor extends React.Component {
   // GET
   handleLoad(event) {
     let res;
-    fetch(`https://localhost:9080/api/v1/doc/${this.docId}`).then(
-      (response) => {
-        if (!response.ok) {
-          throw new Error(`request failed with status ${response.status}`);
-        }
-        res = response.json().then((json) => {
-          this.setState({ value: json.body });
-          let result_element = document.getElementById("highlight-content");
-          result_element.textContent = this.state.value;
-          let element = document.getElementById("markdown-placeholder");
-          let htm = md.render(this.state.value);
-          element.innerHTML = htm;
-          this.updateCodeSyntaxHighlighting();
-        });
+    fetch(mdrtlConfig.serverURL + this.docId).then((response) => {
+      if (!response.ok) {
+        throw new Error(`request failed with status ${response.status}`);
       }
-    );
+      res = response.json().then((json) => {
+        this.setState({ value: json.body });
+        let result_element = document.getElementById("highlight-content");
+        result_element.textContent = this.state.value;
+        let element = document.getElementById("markdown-placeholder");
+        let htm = md.render(this.state.value);
+        element.innerHTML = htm;
+        this.updateCodeSyntaxHighlighting();
+      });
+    });
   }
 
   // POST & PUT
@@ -175,18 +173,15 @@ export default class Editor extends React.Component {
       lastModified: Math.floor(Date.now() / 1000),
       body: this.state.value,
     };
-    let response = await fetch(
-      `https://localhost:9080/api/v1/doc/${this.docId}`,
-      {
-        method: "POST",
-        body: JSON.stringify(obj),
-        mode: "cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    let response = await fetch(mdrtlConfig.serverURL + this.docId, {
+      method: "POST",
+      body: JSON.stringify(obj),
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       let obj = {
@@ -195,18 +190,15 @@ export default class Editor extends React.Component {
         lastModified: Math.floor(Date.now() / 1000),
         body: this.state.value,
       };
-      let response = await fetch(
-        `https://localhost:9080/api/v1/doc/${this.docId}`,
-        {
-          method: "PUT",
-          body: JSON.stringify(obj),
-          mode: "cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      let response = await fetch(mdrtlConfig.serverURL + this.docId, {
+        method: "PUT",
+        body: JSON.stringify(obj),
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error(`request failed with status code ${response.status}`);

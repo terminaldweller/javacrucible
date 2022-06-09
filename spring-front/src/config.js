@@ -1,3 +1,3 @@
 export const mdrtlConfig = {
-  serverURL: "apimdrtl.terminaldweller.com",
+  serverURL: "editorsave.terminaldweller.com/api/v1/doc/",
 };
