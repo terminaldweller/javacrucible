@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 /** The document controller class. */
 @RestController
 // @CrossOrigin(origins = {"https://localhost:7080, https://editor.terminaldweller.com"})
-// @CrossOrigin(origins = "https://localhost:7080")
+@CrossOrigin(origins = "https://editor.terminaldweller.com", maxAge = 3600)
 @RequestMapping(path = "api/v1/doc")
 public class DocController {
   private final DocService docService;
@@ -27,26 +27,22 @@ public class DocController {
     this.docService = docService;
   }
 
-  @CrossOrigin(origins = "https://localhost:7080")
   @GetMapping(path = "{Id}")
   public Optional<Doc> getDocs(@PathVariable("Id") Long id) {
     return docService.getDocs(id);
   }
 
-  @CrossOrigin(origins = "https://localhost:7080")
   @PostMapping(path = "{Id}")
   @ResponseStatus(HttpStatus.CREATED)
   public void postDocs(@PathVariable("Id") Long id, @RequestBody Doc doc) {
     docService.addNewDoc(id, doc);
   }
 
-  @CrossOrigin(origins = "https://localhost:7080")
   @DeleteMapping(path = "{Id}")
   public void deleteDocs(@PathVariable("Id") Long id) {
     docService.deleteDoc(id);
   }
 
-  @CrossOrigin(origins = "https://localhost:7080")
   @PutMapping(path = "{Id}")
   public void updatDoc(@RequestBody Doc doc, @PathVariable("Id") long id) {
     docService.updateDoc(doc, id);

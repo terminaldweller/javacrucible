@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 services:
   server:
     image: spring
@@ -8,8 +8,8 @@ services:
       - "9080:8443"
     networks:
       - springnet
-    cap_drop:
-      - ALL
+    # cap_drop:
+    #   - ALL
     environment:
       - DOCKER_DEPLOYMENT_TYPE=deployment
     # restart: unless-stopped
