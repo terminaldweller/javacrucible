@@ -25,6 +25,7 @@ public class Doc {
    * @param id the id given by the db.
    * @param name the name of the documment given by the user.
    * @param lastModified the date of the last modification in unix epoch.
+   * @param body the actual text of the document.
    */
   public Doc(Long id, String name, long lastModified, String body) {
     this.id = id;

@@ -6,11 +6,17 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/** The server config class. */
 @Configuration
 @EnableWebMvc
 @Profile("development")
 public class DevConfiguration implements WebMvcConfigurer {
 
+  /**
+   * Configuring CORS headers.
+   *
+   * @param registry the registry.
+   */
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry

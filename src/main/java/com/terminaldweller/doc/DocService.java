@@ -14,6 +14,12 @@ public class DocService {
     this.docRepository = docRepository;
   }
 
+  /**
+   * get a document by its id.
+   *
+   * @param id of the document to get.
+   * @return returns the found doc if any.
+   */
   public Optional<Doc> getDocs(Long id) {
     Optional<Doc> docOptional = docRepository.findById(id);
     if (docOptional.isPresent()) {
@@ -26,6 +32,7 @@ public class DocService {
    * Adds a new Document to the data store.
    *
    * @param doc the new Document to add.
+   * @param id the id of the document that's going to be created.
    */
   public void addNewDoc(Long id, Doc doc) {
     // Optional<Doc> docOptional = docRepository.findDocByName(doc.getName());
@@ -41,6 +48,7 @@ public class DocService {
    * Update a Document.
    *
    * @param doc the document to update.
+   * @param id the id of the document to be updated.
    */
   public void updateDoc(Doc doc, Long id) {
     Optional<Doc> docOptional = docRepository.findById(id);

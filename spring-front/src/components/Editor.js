@@ -59,6 +59,10 @@ export default class Editor extends React.Component {
   }
 
   // TODO-use web worker instead
+  /**
+   * Highlights all the pre-code elements in the page, both the left-hand
+   * and righ-hand side.
+   */
   updateCodeSyntaxHighlighting() {
     document.querySelectorAll("pre code").forEach((block) => {
       hljs.highlightElement(block);
@@ -70,6 +74,10 @@ export default class Editor extends React.Component {
   }
 
   // TODO-use web worker instead
+  /**
+   * Parses the markdown to create the rendered HTML for the right-hand
+   * side of the page.
+   */
   parseMarkdown(event) {
     let element = document.getElementById("markdown-placeholder");
     let htm = md.render(event.target.value);
@@ -84,6 +92,10 @@ export default class Editor extends React.Component {
     // this.setState({ value: event.target.value });
   }
 
+  /**
+   * Updates the syntax highlighting and markdown rendering when the
+   * text changes inside the left-hand side editor.
+   */
   handleInput(event) {
     let result_element = document.getElementById("highlight-content");
     result_element.textContent = event.target.value;
@@ -99,6 +111,10 @@ export default class Editor extends React.Component {
     this.setState({ value: event.target.value });
   }
 
+  /**
+   * Scrolls both the pre-code area and the text area together so
+   * we get the illusion of the two elements moving together.
+   */
   handleScroll(event) {
     let result_element = document.querySelector("#highlight-content");
     result_element.scrollTop = event.currentTarget.scrollTop;
@@ -109,6 +125,9 @@ export default class Editor extends React.Component {
     result_element_2.scrollLeft = event.currentTarget.scrollLeft;
   }
 
+  /**
+   * Handles Tab correctly so the text area acts like an editor.
+   */
   handleKeyDown(event) {
     let element = event.currentTarget;
     let code = this.state.value;
@@ -128,11 +147,17 @@ export default class Editor extends React.Component {
     this.setState((prevState) => ({ drawerActive: !prevState.drawerActive }));
   }
 
+  /**
+   * generates a random ID that's will be used to store the document.
+   */
   genNewRandId() {
     return Math.floor(Math.random() * (0x1 << 16));
   }
 
-  // DELETE
+  /**
+   * The document DELETE method. simply sends a DELETE request to delete
+   * the document from the database.
+   */
   handleDelete() {
     fetch(`${mdrtlConfig.serverURL}/${this.docId}`, {
       method: "DELETE",
@@ -146,7 +171,10 @@ export default class Editor extends React.Component {
     });
   }
 
-  // GET
+  /**
+   * The document LOAD method. sends a GET request to the database with
+   * the document id ID which is saved in local storage.
+   */
   handleLoad(event) {
     let res;
     fetch(`${mdrtlConfig.serverURL}/${this.docId}`).then((response) => {
@@ -165,7 +193,12 @@ export default class Editor extends React.Component {
     });
   }
 
-  // POST & PUT
+  /**
+   * The SAVE method. If no document with the given ID exists sends a POST
+   * request to the database to create the document with document id ID.
+   * If the document has been previously saved, then sends a PUT request
+   * to update the last modified date and document text.
+   */
   async handleSave() {
     let obj = {
       id: this.docId,
