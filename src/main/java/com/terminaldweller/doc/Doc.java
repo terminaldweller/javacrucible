@@ -1,5 +1,6 @@
 package com.terminaldweller.doc;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,6 +16,8 @@ public class Doc {
 
   private String name;
   private long lastModified;
+
+  @Column(length = 10000)
   private String body;
 
   public Doc() {}
