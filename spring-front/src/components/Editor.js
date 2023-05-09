@@ -267,27 +267,6 @@ export default class Editor extends React.Component {
         <div className="split right">
           <div direction="rtl" id="markdown-placeholder"></div>
         </div>
-        <img
-          className="icon"
-          src="load.jpg"
-          width="20"
-          height="20"
-          onClick={this.handleLoad.bind(this)}
-        />
-        <img
-          className="icon"
-          src="trash3.png"
-          width="20"
-          height="20"
-          onClick={this.handleDelete.bind(this)}
-        />
-        <img
-          className="icon"
-          src="save.png"
-          width="20"
-          height="20"
-          onClick={this.handleSave.bind(this)}
-        />
       </div>
     );
   }
